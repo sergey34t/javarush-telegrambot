@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JavarunTelegrambotApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(JavarunTelegrambotApplication.class, args);
+		SpringApplication.run(JavarunTelegrambotApplication.class, args );
 	}
 
 }
