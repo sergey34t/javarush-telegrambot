@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.github.javaruncommunity</groupId>
 	<artifactId>javarun-telegrambot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<name>Javarun telegrambot</name>
 	<description>Telegram bot for Javarun from community to community </description>
 	<properties>
