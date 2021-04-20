@@ -4,3 +4,7 @@
 
 ** added stub telegram bot
 ** added Spring Boot skeleton project
+
+## 0.2.0-SNAPSHOT
+
+** implemented Command patterm for handling telegram bots commands
