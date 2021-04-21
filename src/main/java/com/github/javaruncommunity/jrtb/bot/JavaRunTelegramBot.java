@@ -2,12 +2,13 @@ package com.github.javaruncommunity.jrtb.bot;
 
 import com.github.javaruncommunity.jrtb.command.CommandContainer;
 import com.github.javaruncommunity.jrtb.service.SendBotMessageServiceImpl;
+import com.github.javaruncommunity.jrtb.service.TelegramUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
 
 import static com.github.javaruncommunity.jrtb.command.CommandName.NO;
 
@@ -24,8 +25,9 @@ public class JavaRunTelegramBot  extends TelegramLongPollingBot {
 
     private final CommandContainer commandContainer;
 
-    public JavaRunTelegramBot() {
-        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this));
+    @Autowired
+    public JavaRunTelegramBot(TelegramUserService telegramUserService) {
+        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService);
     }
 
     @Override
