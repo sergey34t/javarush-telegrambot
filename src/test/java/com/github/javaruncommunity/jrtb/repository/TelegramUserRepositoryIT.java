@@ -17,12 +17,12 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 /**
  * Integration-level testing for {@link TelegramUserRepository}.
  */
-/*@ActiveProfiles("test")
+@ActiveProfiles("test")
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = NONE)*/
+@AutoConfigureTestDatabase(replace = NONE)
 public class TelegramUserRepositoryIT {
 
-    /*@Autowired
+    @Autowired
     private TelegramUserRepository telegramUserRepository;
 
     @Sql(scripts = {"/sql/clearDbs.sql", "/sql/telegram_users.sql"})
@@ -50,5 +50,5 @@ public class TelegramUserRepositoryIT {
         //then
         Assertions.assertTrue(saved.isPresent());
         Assertions.assertEquals(telegramUser, saved.get());
-    }*/
+    }
 }
