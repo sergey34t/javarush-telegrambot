@@ -2,9 +2,11 @@ package com.github.javaruncommunity.jrtb.service;
 
 import com.github.javaruncommunity.jrtb.bot.JavaRunTelegramBot;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+@Service
 public class SendBotMessageServiceImpl implements SendBotMessageService{
 
     private final JavaRunTelegramBot javaRunTelegramBot;
