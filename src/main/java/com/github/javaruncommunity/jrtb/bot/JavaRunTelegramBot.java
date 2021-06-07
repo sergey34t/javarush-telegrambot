@@ -2,6 +2,7 @@ package com.github.javaruncommunity.jrtb.bot;
 
 import com.github.javaruncommunity.jrtb.command.CommandContainer;
 import com.github.javaruncommunity.jrtb.javarushclient.JavaRushGroupClient;
+import com.github.javaruncommunity.jrtb.javarushclient.JavaRushPostClient;
 import com.github.javaruncommunity.jrtb.service.GroupSubService;
 import com.github.javaruncommunity.jrtb.service.SendBotMessageServiceImpl;
 import com.github.javaruncommunity.jrtb.service.TelegramUserService;
@@ -28,8 +29,8 @@ public class JavaRunTelegramBot  extends TelegramLongPollingBot {
     private final CommandContainer commandContainer;
 
     @Autowired
-    public JavaRunTelegramBot(TelegramUserService telegramUserService,JavaRushGroupClient javaRushGroupClient, GroupSubService groupSubService) {
-        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService, javaRushGroupClient, groupSubService);
+    public JavaRunTelegramBot(TelegramUserService telegramUserService,JavaRushGroupClient javaRushGroupClient, GroupSubService groupSubService, JavaRushPostClient javaRushPostClient) {
+        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService, javaRushGroupClient, groupSubService, javaRushPostClient);
     }
 
     @Override

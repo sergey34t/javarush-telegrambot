@@ -11,3 +11,6 @@ Required software:
 to deploy application, switch to needed branch and run bash script:
 
 $ bash start.sh ${bot_username} ${bot_token}
+
+
+bash start.sh test_javarun_bot 1649848955:AAGgtmcqUKqH5wLoYZKrTc0rnaYM6v-P9po

@@ -1,6 +1,7 @@
 package com.github.javaruncommunity.jrtb.command;
 
 import com.github.javaruncommunity.jrtb.javarushclient.JavaRushGroupClient;
+import com.github.javaruncommunity.jrtb.javarushclient.JavaRushPostClient;
 import com.github.javaruncommunity.jrtb.service.GroupSubService;
 import com.github.javaruncommunity.jrtb.service.SendBotMessageService;
 import com.github.javaruncommunity.jrtb.service.TelegramUserService;
@@ -22,8 +23,9 @@ class CommandContainerTest {
         SendBotMessageService sendBotMessageService = Mockito.mock(SendBotMessageService.class);
         TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
         JavaRushGroupClient javaRushGroupClient = Mockito.mock(JavaRushGroupClient.class);
+        JavaRushPostClient javaRushPostClient = Mockito.mock(JavaRushPostClient.class);
         GroupSubService groupSubService = Mockito.mock(GroupSubService.class);
-        commandContainer = new CommandContainer(sendBotMessageService, telegramUserService,javaRushGroupClient,groupSubService);
+        commandContainer = new CommandContainer(sendBotMessageService, telegramUserService,javaRushGroupClient,groupSubService,javaRushPostClient);
     }
 
     @Test

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.NotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,7 +24,7 @@ public class GroupSubServiceImpl implements GroupSubService {
     }
 
     @Override
-    public GroupSub save(String chatId, GroupDiscussionInfo groupDiscussionInfo) {
+    public GroupSub save(String chatId, GroupDiscussionInfo groupDiscussionInfo, Integer lastArticle) {
         TelegramUser telegramUser = telegramUserService.findByChatId(chatId).orElseThrow(NotFoundException::new);
         //TODO add exception handling
         GroupSub groupSub;
@@ -41,7 +42,23 @@ public class GroupSubServiceImpl implements GroupSubService {
             groupSub.addUser(telegramUser);
             groupSub.setId(groupDiscussionInfo.getId());
             groupSub.setTitle(groupDiscussionInfo.getTitle());
+            groupSub.setLastArticleId(lastArticle);
         }
         return groupSubRepository.save(groupSub);
+    }
+
+    @Override
+    public List<GroupSub> findAll() {
+        return groupSubRepository.findAll();
+    }
+
+    @Override
+    public GroupSub save(GroupSub toSave) {
+        return groupSubRepository.save(toSave);
+    }
+
+    @Override
+    public Optional<GroupSub> findById(Integer groupId) {
+        return groupSubRepository.findById(groupId);
     }
 }

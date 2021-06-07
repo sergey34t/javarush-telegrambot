@@ -1,9 +1,11 @@
 package com.github.javaruncommunity.jrtb.command;
 
 import com.github.javaruncommunity.jrtb.javarushclient.JavaRushGroupClient;
+import com.github.javaruncommunity.jrtb.javarushclient.JavaRushPostClient;
 import com.github.javaruncommunity.jrtb.javarushclient.dto.GroupDiscussionInfo;
 import com.github.javaruncommunity.jrtb.javarushclient.dto.GroupInfo;
 import com.github.javaruncommunity.jrtb.javarushclient.dto.GroupRequestArgs;
+import com.github.javaruncommunity.jrtb.javarushclient.dto.PostInfo;
 import com.github.javaruncommunity.jrtb.repository.entity.GroupSub;
 import com.github.javaruncommunity.jrtb.service.GroupSubService;
 import com.github.javaruncommunity.jrtb.service.SendBotMessageService;
@@ -26,12 +28,14 @@ public class AddGroupSubCommand implements Command {
     private final SendBotMessageService sendBotMessageService;
     private final JavaRushGroupClient javaRushGroupClient;
     private final GroupSubService groupSubService;
+    private final JavaRushPostClient javaRushPostClient;
 
     public AddGroupSubCommand(SendBotMessageService sendBotMessageService, JavaRushGroupClient javaRushGroupClient,
-                              GroupSubService groupSubService) {
+                              GroupSubService groupSubService,JavaRushPostClient javaRushPostClient) {
         this.sendBotMessageService = sendBotMessageService;
         this.javaRushGroupClient = javaRushGroupClient;
         this.groupSubService = groupSubService;
+        this.javaRushPostClient = javaRushPostClient;
     }
 
     @Override
@@ -47,7 +51,8 @@ public class AddGroupSubCommand implements Command {
             if (isNull(groupById.getId())) {
                 sendGroupNotFound(chatId, groupId);
             }
-            GroupSub savedGroupSub = groupSubService.save(chatId, groupById);
+            Integer lastArticle = javaRushPostClient.findAllPostsByGroupId(Integer.parseInt(groupId)).stream().mapToInt(PostInfo::getId).max().getAsInt();
+            GroupSub savedGroupSub = groupSubService.save(chatId, groupById, lastArticle);
             sendBotMessageService.sendMessage(chatId, "Подписал на группу " + savedGroupSub.getTitle());
         } else {
             sendGroupNotFound(chatId, groupId);
