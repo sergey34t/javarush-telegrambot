@@ -5,6 +5,7 @@ import com.github.javaruncommunity.jrtb.javarushclient.JavaRushGroupClient;
 import com.github.javaruncommunity.jrtb.javarushclient.JavaRushPostClient;
 import com.github.javaruncommunity.jrtb.service.GroupSubService;
 import com.github.javaruncommunity.jrtb.service.SendBotMessageService;
+import com.github.javaruncommunity.jrtb.service.StatisticsService;
 import com.github.javaruncommunity.jrtb.service.TelegramUserService;
 import com.google.common.collect.ImmutableMap;
 
@@ -25,14 +26,15 @@ public class CommandContainer {
                             JavaRushGroupClient javaRushGroupClient,
                             GroupSubService groupSubService,
                             JavaRushPostClient javaRushPostClient,
-                            List<String> admins) {
+                            List<String> admins,
+                            StatisticsService statisticsService) {
 
         commandMap = ImmutableMap.<String, Command>builder()
                 .put(START.getCommandName(), new StartCommand(sendBotMessageService, telegramUserService))
                 .put(STOP.getCommandName(), new StopCommand(sendBotMessageService, telegramUserService))
                 .put(HELP.getCommandName(), new HelpCommand(sendBotMessageService))
                 .put(NO.getCommandName(), new NoCommand(sendBotMessageService))
-                .put(STAT.getCommandName(), new StatCommand(sendBotMessageService, telegramUserService))
+                .put(STAT.getCommandName(), new StatCommand(sendBotMessageService, statisticsService))
                 .put(ADD_GROUP_SUB.getCommandName(), new AddGroupSubCommand(sendBotMessageService, javaRushGroupClient, groupSubService, javaRushPostClient))
                 .put(LIST_GROUP_SUB.getCommandName(), new ListGroupSubCommand(sendBotMessageService, telegramUserService))
                 .put(DELETE_GROUP_SUB.getCommandName(), new DeleteGroupSubCommand(sendBotMessageService, groupSubService, telegramUserService))
