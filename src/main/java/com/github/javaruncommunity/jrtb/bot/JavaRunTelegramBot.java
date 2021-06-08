@@ -13,6 +13,8 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 
+import java.util.List;
+
 import static com.github.javaruncommunity.jrtb.command.CommandName.NO;
 
 @Component
@@ -29,8 +31,13 @@ public class JavaRunTelegramBot  extends TelegramLongPollingBot {
     private final CommandContainer commandContainer;
 
     @Autowired
-    public JavaRunTelegramBot(TelegramUserService telegramUserService,JavaRushGroupClient javaRushGroupClient, GroupSubService groupSubService, JavaRushPostClient javaRushPostClient) {
-        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService, javaRushGroupClient, groupSubService, javaRushPostClient);
+    public JavaRunTelegramBot(TelegramUserService telegramUserService,JavaRushGroupClient javaRushGroupClient, GroupSubService groupSubService, JavaRushPostClient javaRushPostClient, @Value("#{'${bot.admins}'.split(',')}") List<String> admins) {
+        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this),
+                telegramUserService,
+                javaRushGroupClient,
+                groupSubService,
+                javaRushPostClient,
+                admins);
     }
 
     @Override
@@ -45,9 +52,9 @@ public class JavaRunTelegramBot  extends TelegramLongPollingBot {
             if (message.startsWith(COMMAND_PREFIX)) {
                 String commandIdentifier = message.split(" ")[0].toLowerCase();
 
-                commandContainer.retrieveCommand(commandIdentifier).execute(update);
+                commandContainer.retrieveCommand(commandIdentifier, update.getMessage().getFrom().getUserName()).execute(update);
             } else {
-                commandContainer.retrieveCommand(NO.getCommandName()).execute(update);
+                commandContainer.retrieveCommand(NO.getCommandName(), update.getMessage().getFrom().getUserName()).execute(update);
             }
         }
     }
