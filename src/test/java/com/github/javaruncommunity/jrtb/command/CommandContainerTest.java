@@ -10,13 +10,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Value;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.util.Arrays;
+import java.util.List;
 
 @DisplayName("Unit-level testing for CommandContainer")
 class CommandContainerTest {
 
     private CommandContainer commandContainer;
+
 
     @BeforeEach
     public void init() {
@@ -25,7 +31,7 @@ class CommandContainerTest {
         JavaRushGroupClient javaRushGroupClient = Mockito.mock(JavaRushGroupClient.class);
         JavaRushPostClient javaRushPostClient = Mockito.mock(JavaRushPostClient.class);
         GroupSubService groupSubService = Mockito.mock(GroupSubService.class);
-        commandContainer = new CommandContainer(sendBotMessageService, telegramUserService,javaRushGroupClient,groupSubService,javaRushPostClient);
+        commandContainer = new CommandContainer(sendBotMessageService, telegramUserService,javaRushGroupClient,groupSubService,javaRushPostClient, Arrays.asList("NeZmaga"));
     }
 
     @Test
@@ -33,7 +39,7 @@ class CommandContainerTest {
         //when-then
         Arrays.stream(CommandName.values())
                 .forEach(commandName -> {
-                    Command command = commandContainer.retrieveCommand(commandName.getCommandName());
+                    Command command = commandContainer.retrieveCommand(commandName.getCommandName(), "NeZmaga");
                     Assertions.assertNotEquals(UnknownCommand.class, command.getClass());
                 });
     }
@@ -44,7 +50,7 @@ class CommandContainerTest {
         String unknownCommand = "/fgjhdfgdfg";
 
         //when
-        Command command = commandContainer.retrieveCommand(unknownCommand);
+        Command command = commandContainer.retrieveCommand(unknownCommand,"1231445");
 
         //then
         Assertions.assertEquals(UnknownCommand.class, command.getClass());
