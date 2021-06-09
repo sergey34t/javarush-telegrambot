@@ -11,7 +11,7 @@ import java.util.Optional;
  */
 public interface GroupSubService {
 
-    GroupSub save(String chatId, GroupDiscussionInfo groupDiscussionInfo, Integer lastArticle);
+    GroupSub save(Long chatId, GroupDiscussionInfo groupDiscussionInfo, Integer lastPost);
 
     Optional<GroupSub> findById(Integer groupId);
 
